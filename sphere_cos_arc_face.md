@@ -16,10 +16,10 @@
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq1.jpg)
 
 根据向量夹角公式，这上式，就可以变形为:
-![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq2.jpg)
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq2.png)
 
 这样，就把softmax的loss，映射到了半径为s的超球面， [公式]对[公式]的角度。(这里X为backbone的输出特征向量)。 再在此角度上加上m度的惩罚，如下式:
-![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq3.jpg)
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq3.png)
 
 就完成了softmax的改造，
 
