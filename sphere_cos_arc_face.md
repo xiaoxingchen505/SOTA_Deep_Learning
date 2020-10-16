@@ -13,12 +13,15 @@
 有效率，因为只是添加了一个角度的惩罚，使train后者prediction的执行速度，没有太大 的影响
 2. 网络结构设计
 从如下softmax的公式可以看出。如果令 [公式] = 1 (L2范式)， 然后把 [公式] 的大小缩放到s.
+
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq1.jpg)
 
 根据向量夹角公式，这上式，就可以变形为:
+
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq2.png)
 
 这样，就把softmax的loss，映射到了半径为s的超球面， [公式]对[公式]的角度。(这里X为backbone的输出特征向量)。 再在此角度上加上m度的惩罚，如下式:
+
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq3.png)
 
 就完成了softmax的改造，
@@ -30,7 +33,7 @@ shpereface是在角度上乘以一个参数，达到提高类间距离，减小�
 
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/eq4.jpg)
 
-从图上看出， shpereface，和cosface以及论文的arcface都是类间的距离拉开了。而且， cosface和arcface的效果都不错。 接下来作者就提供了各种数据的效果实验，结论是arcface的效果基本上达到了sota水平。
+从图上看出， sphereface，和cosface以及论文的arcface都是类间的距离拉开了。而且， cosface和arcface的效果都不错。 接下来作者就提供了各种数据的效果实验，结论是arcface的效果基本上达到了sota水平。
 
 ## 三. 启发及评价
 论文最大的亮点还是，把softmax转换到了超球面空间，试loss值有了一个很 明确的几何解释，这个是很有意思的一个观点。softmax作为传统的loss值求解的一部分，有 可能过于简单了。如果能映射到，其他空间，应该也有比较新颖的效果。
