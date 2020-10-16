@@ -13,7 +13,7 @@
 有效率，因为只是添加了一个角度的惩罚，使train后者prediction的执行速度，没有太大 的影响
 2. 网络结构设计
 从如下softmax的公式可以看出。如果令 [公式] = 1 (L2范式)， 然后把 [公式] 的大小缩放到s.
-
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/tree/main/images/eq1.png)
 
 根据向量夹角公式，这上式，就可以变形为:
 
