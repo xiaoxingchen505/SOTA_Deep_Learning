@@ -37,7 +37,8 @@
 
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inception2.png)
 
-![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inceptstrucure.png)
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inceptstrucure.jpg)
+
 对上图说明如下：
 
 （1）GoogLeNet采用了模块化的结构（Inception结构），方便增添和修改；
