@@ -37,7 +37,7 @@
 
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inception2.png)
 
-![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inceptstrucure.jpg)
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inceptstructure.jpg)
 
 对上图说明如下：
 
