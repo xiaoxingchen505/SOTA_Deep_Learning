@@ -37,6 +37,17 @@
 
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inception2.png)
 
+![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inceptstrucure.png)
+对上图说明如下：
+
+（1）GoogLeNet采用了模块化的结构（Inception结构），方便增添和修改；
+
+（2）网络最后采用了average pooling（平均池化）来代替全连接层，该想法来自NIN（Network in Network），事实证明这样可以将准确率提高0.6%。但是，实际在最后还是加了一个全连接层，主要是为了方便对输出进行灵活调整；
+
+（3）虽然移除了全连接，但是网络中依然使用了Dropout ; 
+
+（4）为了避免梯度消失，网络额外增加了2个辅助的softmax用于向前传导梯度（辅助分类器）。辅助分类器是将中间某一层的输出用作分类，并按一个较小的权重（0.3）加到最终分类结果中，这样相当于做了模型融合，同时给网络增加了反向传播的梯度信号，也提供了额外的正则化，对于整个网络的训练很有裨益。而在实际测试的时候，这两个额外的softmax会被去掉。
+
 ## 稀疏结构-特征图通道的分解
 
 672个特征图分解为四个部分
