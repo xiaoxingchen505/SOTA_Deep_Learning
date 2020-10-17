@@ -49,3 +49,9 @@
 打破均匀分布，相关性强的特征聚集在一起。
 
 ![image](https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/inception3.png)
+
+
+## 关键点&创新点
+1. 大量使用1*1，可降低维度，减少计算量，参数是AlexNet的是十二分之一
+2. 多尺度卷积核，实现多尺度特征提取
+3. 辅助损失层，增加梯度回传，增加正则，减轻过拟合
