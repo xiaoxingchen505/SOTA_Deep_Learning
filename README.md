@@ -1,2 +1,2 @@
-# SOA_Deep_Learning
- Some summary of SOA in deep learning
+# SOTA_Deep_Learning
+ Some reviews of SOTA in deep learning
