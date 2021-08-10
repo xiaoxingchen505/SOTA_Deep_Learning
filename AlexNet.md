@@ -26,3 +26,13 @@ Hinton在2012年的Alexnet网络中给出其具体的计算公式如下：
 ## AlexNet结构：
 
 
+```python
+
+a = 0
+b = 1
+c = 2
+
+for i in range(c):
+    print(i)
+
+```
