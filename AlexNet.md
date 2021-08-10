@@ -26,7 +26,7 @@ Hinton在2012年的Alexnet网络中给出其具体的计算公式如下：
 ## AlexNet结构：
 
 
-```python
+```java
 
 a = 0
 b = 1
