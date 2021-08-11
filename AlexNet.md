@@ -73,6 +73,8 @@ pool1的核：3X3 步长：2，pool2（池化层）降采样之后的数据为13
 
 参考链接：https://www.jianshu.com/p/00a53eb5f4b3
 
+
+## 使用Keras实现AlexNet
 ```python
 
 from keras.models import Sequential
