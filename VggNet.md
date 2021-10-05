@@ -29,10 +29,10 @@
 1. 5个maxpool 
 2. maxpool后，特征图通道数翻倍直至512 
 3. 3个FC层进行分类输出 
-4. maxpool之间采用多个卷积层堆叠，对特征 进行提取和抽
+4. maxpool之间采用多个卷积层堆叠，对特征进行提取和抽样
 
 ### 演变过程特点
-A：11层卷积
+A：11层卷积, 其中maxpooling为2*2，且stride为2，意味着每一个池化层后，特征图的尺寸减半。
 
 A-LRN：基于A增加一个LRN
 
@@ -42,9 +42,22 @@ C： 第3， 4， 5个block分别增加1个1*1卷积，表明增加非线性有�
 
 D：第3， 4， 5个block的1*1卷积替换为3*3，
 
-E：第3， 4， 5个block再分别增加1个3*3卷
-积
+E：第3， 4， 5个block再分别增加1个3*3卷积
+
+为什么从11层开始？GoodFellow在2014年有一个applied deep ConvNets(11 weight layers) to the task of street number recognition
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg1.png">
 
-## 
+### Vgg结构
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg2.png">
+
+右边图中间少了一个conv3-256
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg3.png">
+
+### Vgg结构特点
+
+1. 堆叠使用 3 x 3 卷积核， 2个3 x 3 卷积核等价于 1个5 x 5卷积核
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg4.png">
