@@ -58,6 +58,10 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 
 ### Vgg结构特点
 
-1. 堆叠使用 3 x 3 卷积核， 2个3 x 3 卷积核等价于 1个5 x 5卷积核
+1. 堆叠使用 3 x 3 卷积核， 2个3 x 3 卷积核等价于 1个5 x 5卷积核，3个3x3卷积核等价于1个7x7卷积核
+
+    * 增加非线性激活函数，增加特征抽象能力
+    * 减少训练参数
+    * 可以看成7x7卷积核的正则化，强迫7x7分解为3x3
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg4.png">
