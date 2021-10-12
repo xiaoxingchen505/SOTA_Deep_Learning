@@ -117,6 +117,8 @@ Q = (S_min, 0.5*(S_min + S_max), S_max)
 
 ### Convnet fusion
 
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg8.png">
+
 方 法 : ILSVRC中 ，多模型融合已经是常规操作。ILSVRC中提交的模型为7个模型融合采用最优的两个模型结合multi-crop和dense
 * D / [ 2 5 6 , 5 1 2 ] / 2 5 6 , 3 8 4 , 5 1 2
 * E / [ 2 5 6 , 5 1 2 ] / 2 5 6 , 3 8 4 , 5 1 2
