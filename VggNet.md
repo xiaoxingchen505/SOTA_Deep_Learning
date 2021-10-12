@@ -77,6 +77,11 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 2. 尝试1x1卷积，借鉴Network in Network(NIN)，引入利用1x1卷积，增加非线性激活函数，提升模型效果。
 
 
+## 训练技巧 & 测试技巧
+
+### 数据增强
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg9.png">
 
 ## 实验结果及分析
 
