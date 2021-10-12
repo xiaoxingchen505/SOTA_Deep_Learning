@@ -92,3 +92,23 @@ S为固定值时：Q = S， S为随机值时：Q = 0.5（S_min + S_max)
 3. 训练时加入尺度扰动，有助于性能提升
 4. B模型中，3*3替换为5*5卷积，top1下降7%
 
+### Multi scale evaluation
+
+方法1 :
+Q = [S-32, S, S+32]
+
+方法2：
+Q = (S_min, 0.5*(S_min + S_max), S_max)
+
+1. 测试时采用Scale jittering 有助于性能提升。
+
+### Multi crop evaluation
+
+方法:
+等步长的滑动224* 224的窗口进行裁剪，在尺度为Q的图像上裁剪5*5=25张图片，然后再进行水平翻转，得到50张图片，结合三个Q值，一张图片得到150张图片输入到模型中
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg6.png">
+
+结 论 ：
+1. multi-crop优于dense
+2. multi-crop结合dense，可形成互补，达到最优结
