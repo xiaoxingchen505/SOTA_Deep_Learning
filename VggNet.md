@@ -75,3 +75,20 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 参数减少比：(49-27)/49 ≈ 44%
 
 2. 尝试1x1卷积，借鉴Network in Network(NIN)，引入利用1x1卷积，增加非线性激活函数，提升模型效果。
+
+
+
+## 实验结果及分析
+
+### Single scale evaluation
+
+S为固定值时：Q = S， S为随机值时：Q = 0.5（S_min + S_max)
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg5.png">
+
+结论：
+1. 误差随深度加深而降低，当模型到达19层时，误差饱和，不再下降
+2. 增加1*1有助于性能提升
+3. 训练时加入尺度扰动，有助于性能提升
+4. B模型中，3*3替换为5*5卷积，top1下降7%
+
