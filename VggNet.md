@@ -79,9 +79,24 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 
 ## 训练技巧 & 测试技巧
 
-### 数据增强
+### 数据增强和尺度扰动(Scale Jittering)
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg9.png">
+
+### 预训练模型初始化
+
+深度神经网络对初始化敏感
+1. 深度加深时，用浅层网络初始化, B，C，D，E用A模型初始化
+2. Multi-scale训练时，用小尺度初始化, S=384时，用S=256模型初始化, S=[256, 512]时，用S=384模型初始化
+
+### 多尺度测试
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg10.png">
+
+
+### 稠密测试：
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg11.png">
 
 ## 实验结果及分析
 
