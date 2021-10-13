@@ -95,6 +95,7 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 
 
 ### 稠密测试：
+
 稠密测试（Dense test） ：将FC层转换为卷积操作，变为全卷积网络，实现任意尺寸图片输入
 
 1. 经过全卷积网络得到 N* N* 1000 特征图
@@ -102,6 +103,11 @@ E：第3， 4， 5个block再分别增加1个3*3卷积
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg11.png" width="600" height="300">
 
+### Multi-crop 测试
+
+借鉴AlexNet与GoogLeNet，对图片进行Multi-crop，裁剪大小为224* 224，并水平翻转1张图，缩放至3种尺寸，然后每种尺寸裁剪出50张图片；50 = 5*5*2
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vgg12.png" width="600" height="300">
 
 ## 实验结果及分析
 
