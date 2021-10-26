@@ -5,3 +5,7 @@
 
 
 * [AlexNet](scripts/AlexNet.md)
+
+* [VggNet](scripts/VggNet.md)
+
+* [GoogleNet(Inception_v0)](scripts/VggNet.md)
