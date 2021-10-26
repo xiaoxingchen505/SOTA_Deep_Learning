@@ -8,4 +8,4 @@
 
 * [VggNet](scripts/VggNet.md)
 
-* [GoogleNet(Inception_v0)](scripts/VggNet.md)
+* [GoogleNet(Inception_v0)](scripts/GoogleNet(Inception_v0).md)
