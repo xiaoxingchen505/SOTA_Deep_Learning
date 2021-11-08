@@ -1,4 +1,7 @@
-# VggNet
+# ResNet
+Author: Kaiming He， Xiangyu Zhang ，Shaoqing Ren， Jian Sun (MSRA)
+
+
 
 ## 相关工作
 
@@ -157,4 +160,4 @@ Q = (S_min, 0.5*(S_min + S_max), S_max)
 ## Vgg代码
 
 
-[代码](https://github.com/xiaoxingchen505/SOTA_Deep_Learning/tree/main/code/VGG-%E4%BB%A3%E7%A0%81/B_VGG)
+[代码](code/VGG-代码/B_VGG)
