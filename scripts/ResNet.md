@@ -58,6 +58,9 @@ Identity 与 F(x)结合形式讨论：
 2. B-网络层映射：当维度发生变化时，通过网络层映射 (例如：1*1 卷积) 特征图至相同纬度
 3. C-所有Shortcut均通过网络层映射（例如：1*1卷积）
 
+### Shortcut Mapping有利于反向传播
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res3.png">
+
 
 ## 模型结构
 
