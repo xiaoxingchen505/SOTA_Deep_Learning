@@ -22,7 +22,7 @@ Residual learning：让网络层拟合H(x)-x， 而非H(x)
 
 注：整个building block仍旧拟合H(x) ，注意区分building block与网络层的差异，两者不一定等价
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res1.png">
-Plain：Block_out = H(x)            Residual learning：Block_out = H（x） = F（x）+ x
+左边：Plain：Block_out = H(x)                             右边：   Residual learning：Block_out = H（x） = F（x）+ x
 
 
 ## 模型结构
