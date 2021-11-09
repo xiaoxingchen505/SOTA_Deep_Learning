@@ -5,25 +5,24 @@ Author: Kaiming He， Xiangyu Zhang ，Shaoqing Ren， Jian Sun (MSRA)
 
 ## 相关工作
 
-1. AlexNet：借鉴卷积模型结构
-2. ZFNet： 借鉴其采用小卷积核思想
-3. OverFeat：借鉴全卷积，实现高效的稠密（Dense）预测
-4. NIN：尝试1*1卷积
+1. Highway Network：首个成功训练成百上千层（100层及900层）的卷积神经网络 思路：借鉴LSTM，引入门控单元，将传统前向传播增加一条计算路
+径.
+
 
 ## 研究意义
 
-1. 开启小卷积核时代：3*3卷积核成为主流模型
-2. 作为各类图像任务的骨干网络结构：分类、定位、检测、分割一系列图像任务大都有VGG为骨干
-网络的尝试
+1. 简洁高效的ResNet受到工业界宠爱，自提出以来已经成为工业界最受欢迎的卷积神经网络结构
+2. 近代卷积神经网络发展史的又一里程碑，突破千层网络，跳层连接成为标配
 
 
-## Abstract
 
-1. 本文主题：在大规模图像识别任务中，探究卷积网络深度对分类准确率的影响
-2. 主要工作：研究3*3卷积核增加网络模型深度的卷积网络的识别性能，同时将模型加深到16-19层
-3. 本文成绩：VGG在ILSVRC-2014获得了定位任务冠军和分类任务亚军
-4. 泛化能力：VGG不仅在ILSVRC获得好成绩，在别的数据集中表现依旧优异
-5. 开源贡献：开源两个最优模型，以加速计算机视觉中深度特征表示的进一步研究
+## 残差结构 Architecture Of Residual Learning
+
+Residual learning：让网络层拟合H(x)-x， 而非H(x)
+
+注：整个building block仍旧拟合H(x) ，注意区分building block与网络层的差异，两者不一定等价
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res1.png">
+Plain：Block_out = H(x)            Residual learning：Block_out = H（x） = F（x）+ x
 
 
 ## 模型结构
