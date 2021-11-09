@@ -28,8 +28,8 @@ Residual learning：让网络层拟合H(x)-x， 而非H(x)
 * 问：为什么拟合F（x）?
   答：提供building block更容易学到恒等映射（identity mapping）的可能
 
-* 问：为什么拟合F（x）?
-  答：提供building block更容易学到恒等映射（identity mapping）的可能
+* 问：为什么拟合F（x）就使得building block容易学到恒等映射？
+  答：如果网络层的输出为0的话，它就是一个恒等映射。比如：H(x) = F(x) + x，如果F(x)= 0，那么H(x) = x，那么这就是一个identity mapping
 
 * 问：为什么要恒等映射？
   答：让深层网络不至于比浅层网络差
@@ -37,7 +37,28 @@ Residual learning：让网络层拟合H(x)-x， 而非H(x)
 * 问：为什么深层网络比浅层网络差？
   答：网络退化问题
 
-  
+### 网络退化（degradation problem)
+越深的网络拟合能力越强，因此越深的网络训练误差应该越低，但实际相反
+
+原因：并非过拟合，而是网络优化困难
+
+假设我们有一个18层的网络，我们加入building block，使其成为34层，若building block的网络层能学习到恒等映射，34层网络至少能与18层网络有相同性能
+
+问：如何让额外的网络层更容易的学习到恒等映射？
+答：skip connection == residual learning == shortcut connection
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res2.png">
+
+
+### Shortcut Mapping
+
+Identity 与 F(x)结合形式讨论：
+
+1. A-全零填充：维度增加部分采用零来填充
+2. B-网络层映射：当维度发生变化时，通过网络层映射 (例如：1*1 卷积) 特征图至相同纬度
+3. C-所有Shortcut均通过网络层映射（例如：1*1卷积）
+
+
 ## 模型结构
 
 ### 和AlexNet的相同点：
