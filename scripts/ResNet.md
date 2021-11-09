@@ -24,6 +24,20 @@ Residual learning：让网络层拟合H(x)-x， 而非H(x)
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res1.png">
 
 
+
+* 问：为什么拟合F（x）?
+  答：提供building block更容易学到恒等映射（identity mapping）的可能
+
+* 问：为什么拟合F（x）?
+  答：提供building block更容易学到恒等映射（identity mapping）的可能
+
+* 问：为什么要恒等映射？
+  答：让深层网络不至于比浅层网络差
+
+* 问：为什么深层网络比浅层网络差？
+  答：网络退化问题
+
+  
 ## 模型结构
 
 ### 和AlexNet的相同点：
