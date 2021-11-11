@@ -83,12 +83,13 @@ Bottleneck：
 第一个1*1下降1/4通道数
 第二个1*1提升4倍通道数
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res5.png">
+
 bottleneck中的4在resnet中是一个超参数：
 ```python
 class Bottleneck(nn.Module):
     expansion = 4
 ```
-.conda\envs\pytorch_1.4_gpu\Lib\site-packages\torchvision\models\resnet.py
+位于.conda\envs\pytorch_1.4_gpu\Lib\site-packages\torchvision\models\resnet.py
 
 ## 预热训练 Warmup
 避免一开始较大学习率导致模型的不稳定，因而一开始训练时用较小的学习率训练一个epochs，然后恢复正常学习率
@@ -96,11 +97,37 @@ class Bottleneck(nn.Module):
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res6.png">
 
 ## 实验结果与分析
-实验1：验证residual learning可解决网络退化问题，可训练更深网
+
+### 实验1：验证residual learning可解决网络退化问题，可训练更深网
 络
 ILSVRC top-1 error:
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res8.png">
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res7.png">
+
+### 实验2：横纵对比，shortcut策略（ABC）及层数
+
+1. A-全零填充：维度增加的部分采用零来填充
+2. B-网络层映射：当维度发生变化时，通过网络层映射特征图至相同维度
+3. C-所有Shortcut均采用网络层映射
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res9.png">
+
+
+
+### 实验3：成功训练千层神经网络
+
+Cifar-10数据集上成功训练1202层卷积网络
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res10.png">
+
+在这个图中，1202层的网络不如110层网络是因为过拟合现象。
+
+### 实验4：残差学习输出神经元尺度
+
+统计每个卷积+BN层输出的神经元尺度大小，以标准差来衡量尺度
+
+结论：ResNet输出比plain小，表明带残差学习的结构比不带残差学习时，输出更偏向0，从而更近似于恒等映射
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res11.png">
 
 ## ResNet代码
 
