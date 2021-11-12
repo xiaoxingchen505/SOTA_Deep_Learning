@@ -129,6 +129,89 @@ Cifar-10数据集上成功训练1202层卷积网络
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/res11.png">
 
+
+##  论文总结
+
+### 关键点&创新点
+
+* 引入shortcut connection，让网络信息有效传播，梯度反传顺畅，使得数千层卷积神经网络都可以收敛
+注：本文中：shortcut connection == skip connection == identity mapping
+
+
+### 启发点
+
+1. 大部分的梯度消失与爆炸问题，可通过良好初始化或者中间层的标准化来解决。
+
+An obstacle to answering this question was the notorious problem of vanishing/exploding gradients [1, 9],
+which hamper convergence from the beginning. This problem, however, has been largely addressed by
+normalized initialization [23, 9, 37, 13] and intermediate normalization layers （1 Introduction p2）
+
+2. shortcut connection有很多种方式，本文主要用的是恒等映射，即什么也不操作的往后传播
+
+In our case, the shortcut connections simply perform identity mapping. (1 Introduction p6)
+
+3. highway network的shortcut connection依赖参数控制，resnet不需要
+
+These gates are data-dependent and have parameters, in contrast to our identity shortcuts that are
+parameter-free.(2 Related Work p4)
+
+4. 恒等映射形式的shortcut connection是从网络退化问题中思考而来
+
+This reformulation ( H(x ) = F(x) + x )is motivated by the counterintuitive phenomena about the
+degradation problem.(3.1 Residual learning)
+
+5. 借鉴VGG，本文模型设计原则：1.处理相同大小特征图，卷积核数量一样；2.特征图分辨率降低时，通道数翻倍
+
+two simple design rules: (i) for the same output feature map size, the layers have the same number of
+filters; and (ii) if the feature map size is halved, the number of filters is doubled so as to preserve
+the time complexity per layer. （3.3 Network Architectures p2）
+
+6. 当特征图分辨率变化时，shortcut connection同样采用stride=2进行处理
+
+For both options, when the shortcuts go across feature maps of two sizes, they are performed with a
+stride of 2. （3.3 Network Architectures p4）
+
+7. bottleneck 中两个1*1卷积分别用于减少通道数和增加/保存通道数
+
+The three layers are 1×1, 3×3, and 1×1 convolutions, where the 1×1 layers are responsible for reducing and
+then increasing (restoring). (4.1 Imagenet Classification Deeper Bottleneck
+
+
+8. 模型集成采用6种不同深度的ResNet结构，可以借鉴其思路
+We combine six models of different depth to form an ensemble (only with two 152-layer ones at the time of
+submitting) (4.1 Imagenet Classification Comparisons with State-of-the-art Methods.)
+
+
+9. cifar-10数据集上的ResNet-110, 第一个epochs采用较小学习率，来加速模型收敛
+We further explore n = 18 that leads to a 110-layer ResNet. In this case, we find that the initial learning rate
+of 0.1 is slightly too large to start converging5. So we use 0.01 to warm up the training until the training
+error is below 80% (about 400 iterations), and then go back to 0.1 and continue training. (4.2. CIFAR-10 and Analysis p6)
+
+10. cifar-10数据集上，ResNet-1202比110要差，原因可能是过拟合，而不是网络退化
+But there are still open problems on such aggressively deep models. The testing result of this 1202-layer
+network is worse than that of our 110-layer network. We argue that this is because of overfitting. (4.2.
+Exploring Over 1000 layers)
+
+11. 本文无conclusion，没有对未来可研究的内容进行总结，in the future 贯穿在文中有两处
+  * 导致网络退化的训练困难问题目前还未清楚，需要在将来研究
+The reason for such optimization difficulties will be studied in the future.
+  * 本文重点在于研究shortcut connection，所以ResNet未用maxout or dropout之类的正则化方法，将来可考虑加入这些正
+则化方法，进一步提升模型性能
+But combining with stronger regularization may improve results, which we will study in the future
+
+12. 模型的思考
+为什么是14*14的时候改动building block数量？
+inception-v3中的非对称卷积分解建议在12-20之间，从两种策略中是否总结出某种经验结论？
+
+13. “无辜”的VGG，被各大模型用于进行参数量的对比
+自GoogLeNet之后，输出几乎不采用多个全连接层堆叠形式，大大减少了参数量
+
+14. Residual learning 提供网络特殊的结构，使也有机会学习到identity mapping，但具体网络学不学，交给模型自己
+回顾GoogLeNet-V2的Batch Normalization中的γ和β，提供这个线性变换，让模型有机会恢复标准化前的尺度，但恢复还是不恢复，
+交给模型自己
+人类完成的是逻辑上的改变，给模型更多的可能性，然后论文中可以说，一切交给模型自己决定
+
+
 ## ResNet代码
 
 
