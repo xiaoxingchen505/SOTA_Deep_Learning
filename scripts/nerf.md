@@ -5,22 +5,29 @@
 
 Keywords: scene representation, view synthesis, image-based rendering, volume rendering, 3D deep learning
 
-# 相关方法 Related works：
+## 相关方法 Related works：
 
 recent work has investigated the implicit representation of continuous 3D shapes as level sets by optimizing deep networks that map xyz coordinates to signed distance functions or occupancy fields.
 
-然而这些模型的限制是它们必须需要 ground truth 3D geometry， 通常是合成的3D shape数据集 比如 shapeNet. 随后的工作放宽了这一要求，仅使用2D 图片，通过制定可微分的渲染函数 (differential rendering functions) 来构建真实3D形状允许对神经隐式形状表示 (neural implicit shape representations) 进行优化。
+然而这些模型的限制是它们必须需要 ground truth 3D geometry， 通常是合成的3D shape数据集 比如 shapeNet这个方法. 随后的工作放宽了这一要求，仅使用2D 图片，通过制定可微分的渲染函数 (differential rendering functions) 来构建真实3D形状允许对神经隐式形状表示 (neural implicit shape representations) 进行优化。
 
 这些方法也许可以产生复杂的高清立体图像，但是他们目前只局限于一些简单的形状，以至于过平滑渲染 (oversmoothed renderings)
+
+* 比较流行的方法： 使用 mesh-based representations of scenes with either diffuse or view-dependent appearance.
+Differentiable rasterizers or pathtracers can directly optimize mesh representations to reproduce a set of input images using gradient descent.
+这个方法不好，因为 this strategy requires a template mesh with fixed topology to be provided as an initialization before optimization [22], which is typically unavailable for unconstrained real-world scenes.
+
+
+* 另外一种方法使用 volumetric representations to address the task of high-quality photorealistic view synthesis from a set of input RGB images.
 
 ## 核心方法：
 
 利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的光，还有在每一个点上光线穿过的密度 (density)。
 
-本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，其对应的一个volume density和视角对应 (view-dependent) 的RGB颜色，来表达这个function。
+本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，和其对应的一个volume density，还有其视角对应 (view-dependent) 的RGB颜色，来实现这个模型。
 
 
-Keywords: 5D数据 (x, y, z, θ, φ) , volume density, view-dependent RGB color
+关键词: 5D数据 (x, y, z, θ, φ) , volume density, view-dependent RGB color
 
 
 ## 方法步骤：
