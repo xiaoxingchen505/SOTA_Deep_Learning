@@ -1,0 +1,45 @@
+
+
+# NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis
+
+
+Keywords: scene representation, view synthesis, image-based rendering, volume rendering, 3D deep learning
+
+# 相关方法 Related works：
+
+recent work has investigated the implicit representation of continuous 3D shapes as level sets by optimizing deep networks that map xyz coordinates to signed distance functions or occupancy fields.
+
+然而这些模型的限制是它们必须需要 ground truth 3D geometry， 通常是合成的3D shape数据集 比如 shapeNet. 随后的工作放宽了这一要求，仅使用2D 图片，通过制定可微分的渲染函数 (differential rendering functions) 来构建真实3D形状允许对神经隐式形状表示 (neural implicit shape representations) 进行优化。
+
+这些方法也许可以产生复杂的高清立体图像，但是他们目前只局限于一些简单的形状，以至于过平滑渲染 (oversmoothed renderings)
+
+## 核心方法：
+
+利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的光，还有在每一个点上光线穿过的密度 (density)。
+
+本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，其对应的一个volume density和视角对应 (view-dependent) 的RGB颜色，来表达这个function。
+
+
+Keywords: 5D数据 (x, y, z, θ, φ) , volume density, view-dependent RGB color
+
+
+## 方法步骤：
+
+1.  march camera rays through the scene to generate a sampled set of 3D points
+
+2. use those points and their corresponding 2D viewing directions as input to the neural network to produce an output set of colors and densities
+
+3. use classical volume rendering techniques to accumulate those colors and densities into a 2D image
+
+### This process is naturally differentiable
+
+Because this process is naturally differentiable, we can use gradient descent to optimize this model by minimizing the error between each observed image and the corresponding views rendered from our representation.
+
+
+## 论文总结：
+
+优点，贡献：
+1. 模型简单，使用basic MLP network
+2. 克服了在高分辨率下对复杂场景建模时，离散体素网格难以承受的存储成本。
+3. 提出一个positional encoding 来把每一个5D 坐标输入映射为更高的空间维度。
+4. 一个基于传统volume rendering技术的可微分 (differentiable) 过程
