@@ -215,4 +215,4 @@ inception-v3中的非对称卷积分解建议在12-20之间，从两种策略中
 ## ResNet代码
 
 
-[代码](code/VGG-代码/B_VGG)
+[代码](code/ResNet-code)

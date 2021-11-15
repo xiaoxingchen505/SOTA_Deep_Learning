@@ -4,9 +4,11 @@
 
 
 ## Artificial Neural Network
-
+ 内容主要来自深度之眼，部分笔记来自互联网
 * [AlexNet](scripts/AlexNet.md)
 
 * [VggNet](scripts/VggNet.md)
 
 * [GoogleNet(Inception_v0)](scripts/GoogleNet(Inception_v0).md)
+
+* [ResNet](scripts/GoogleNet(Inception_v0).md)
