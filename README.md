@@ -12,3 +12,8 @@
 * [GoogleNet(Inception_v0)](scripts/GoogleNet(Inception_v0).md)
 
 * [ResNet](scripts/GoogleNet(Inception_v0).md)
+
+
+## ECCV paper reviews
+
+* [NerF： Representing Scenes as Neural Radiance Fields for View Synthesis](scripts/nerf.md)
