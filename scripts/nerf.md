@@ -16,7 +16,7 @@ recent work has investigated the implicit representation of continuous 3D shapes
 * 比较流行的方法： 使用 mesh-based representations of scenes with either diffuse or view-dependent appearance.
 Differentiable rasterizers or pathtracers can directly optimize mesh representations to reproduce a set of input images using gradient descent.
 
-这个方法不好，因为 this strategy requires a template mesh with fixed topology to be provided as an initialization before optimization [22], which is typically unavailable for unconstrained real-world scenes.
+这个方法不好，因为这个方法需要 a template mesh with fixed topology to be provided as an initialization before optimization, which is typically unavailable for unconstrained real-world scenes.
 
 
 * 另外一种方法使用 volumetric representations to address the task of high-quality photorealistic view synthesis from a set of input RGB images.
