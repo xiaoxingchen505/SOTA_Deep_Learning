@@ -19,9 +19,9 @@ Differentiable rasterizers or pathtracers can directly optimize mesh representat
 这个方法不好，因为这个方法需要 a template mesh with fixed topology to be provided as an initialization before optimization, which is typically unavailable for unconstrained real-world scenes.
 
 
-* 另外一种方法使用 volumetric representations to address the task of high-quality photorealistic view synthesis from a set of input RGB images. Volumetric 方法可以应用到一些复杂的形状和材料，同时也很适合gradient-based优化。然后作者表明了这些现有的volumetric 方法受到的局限性很大 by poor time and space complexity.
+* 另外一种方法使用 volumetric representations to address the task of high-quality photorealistic view synthesis from a set of input RGB images. Volumetric 方法可以应用到一些复杂的形状和材料，同时也很适合gradient-based优化。然后作者表明了这些现有的volumetric 方法受到的局限性很大 by poor time and space complexity due to their discrete sampling.
 
-* 最后作者说了自己的方法：We circumvent this problem by instead encoding a continuous volume within the parameters of a deep fully-connected neural network, which not only produces significantly higher quality renderings than prior volumetric approaches, but also requires just a fraction of the storage cost of those sampled volumetric representations.
+* 最后作者说了自己的方法来规避volumetric方法中的问题：We circumvent this problem by instead encoding a continuous volume within the parameters of a deep fully-connected neural network, which not only produces significantly higher quality renderings than prior volumetric approaches, but also requires just a fraction of the storage cost of those sampled volumetric representations. 渲染高清的图片需要对三维空间更好的采样。
 ## 核心方法：
 
 利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的光，还有在每一个点上光线穿过的密度 (density)。
