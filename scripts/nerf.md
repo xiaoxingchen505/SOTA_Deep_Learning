@@ -50,9 +50,12 @@ Because this process is naturally differentiable, we can use gradient descent to
 
 ## Neural Radiance Field Scene Representation
 
-论文通过一个5D矢量来表征一个连续的场景，其输入是之前提到过的三维空间位置(x, y, z)，还有二维的视角方向(θ, φ) ，其输出是散发出的颜色 c = (r, g, b)，还有容量密度(volume density) σ
+论文通过一个5D矢量来表征一个连续的场景，其输入是之前提到过的三维空间位置 x = (x, y, z)，还有二维的视角方向(θ, φ) ，其输出是散发出的颜色 c = (r, g, b)，还有容量密度(volume density) σ
+
+如果FΘ是MLP网络，x = (x, y, z)坐标，视角 d 为3维笛卡尔坐标(cartisan unit vector)，那么整个过程可以看做公式化为：FΘ : (x, d) → (c, σ)
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf1.png">
+
 
 ## 论文总结：
 
