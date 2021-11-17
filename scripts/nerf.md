@@ -56,17 +56,25 @@ Because this process is naturally differentiable, we can use gradient descent to
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf1.png">
 
-论文为了让物体表现为multiview consistent，通过限制网络仅通过坐标x来预测volume density σ 而同时又允许RGB颜色c又可以被通过坐标和视角来预测. MLP网络首先接受输入x和8层全连接层 (使用ReLU激活函数和每一层256个channels), 然后输出volume density σ和256维的feature vector. 这个feature vector随后产生于通过拼接摄像机视角和通过一层额外的能够输出基于视角的RGB颜色的全连接层(使用ReLU和128个channels)。
+论文为了让物体表现为multiview consistent，通过限制网络仅通过坐标x来预测volume density σ 而同时又允许RGB颜色 c 可以被通过坐标和视角来预测. MLP网络首先接受输入x和8层全连接层 (使用ReLU激活函数和每一层256个channels) , 然后输出volume density σ和256维的feature vector. 这个feature vector随后产生于通过拼接摄像机视角和通过一层额外的能够输出基于视角的RGB颜色的全连接层 (使用ReLU和128个channels)。
 
 
 
 ## Volume Rendering with Radiance Fields
 
-Volume density σ(x) 可以被解释为一束光线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
+Volume density σ(x) 可以被解释为一束光线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色 C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf2.png">
 
 
 T(t) 代表着一条线上累计的光，从 tn 传输到 t. 比如，光线从tn 到 t 不碰到任何粒子的概率。需要估计通过所需虚拟相机的每个像素追溯的相机光线的积分C（r）。
+
+我们对这样的连续积分使用Quadrature求积法. Deterministic quadrature (quadrature求定积分), 通常被用做渲染离散化的三位像素网络，会有效的影响我们个体表现的分辨率，因为 MLP 只会在应用在一组固定的且离散的坐标位置。
+
+反之，我们使用分层采样 (stratified sampling) 的方法， 这样我们可以把 [tn, tf] 分成 N 个均等区间的分箱 (bins)， 然后统一随机在每一个分箱内抽取一个样本。
+
+Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf3.png">
 
 ## 论文总结：
 
