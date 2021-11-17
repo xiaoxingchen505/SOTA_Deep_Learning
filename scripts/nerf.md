@@ -65,11 +65,6 @@ Because this process is naturally differentiable, we can use gradient descent to
 Volume density σ(x) 可以被解释为一束光线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf2.png">
 
-The function T(t) denotes the accumulated transmittance along the ray from
-tn to t, i.e., the probability that the ray travels from tn to t without hitting
-any other particle. Rendering a view from our continuous neural radiance field
-requires estimating this integral C(r) for a camera ray traced through each pixel
-of the desired virtual camera.
 
 T(t) 代表着一条线上累计的光，从 tn 传输到 t. 比如，光线从tn 到 t 不碰到任何粒子的概率。需要估计通过所需虚拟相机的每个像素追溯的相机光线的积分C（r）。
 
