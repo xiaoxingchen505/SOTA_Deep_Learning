@@ -59,6 +59,13 @@ Because this process is naturally differentiable, we can use gradient descent to
 论文为了让物体表现为multiview consistent，通过限制网络仅通过坐标x来预测volume density σ 而同时又允许RGB颜色c又可以被通过坐标和视角来预测. MLP网络首先接受输入x和8层全连接层 (使用ReLU激活函数和每一层256个channels), 然后输出volume density σ和256维的feature vector. 这个feature vector随后产生于通过拼接摄像机视角和通过一层额外的能够输出基于视角的RGB颜色的全连接层(使用ReLU和128个channels)。
 
 
+
+## Volume Rendering with Radiance Fields
+
+Volume density σ(x) 可以被解释为一束光线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf2.png">
+
+
 ## 论文总结：
 
 优点，贡献：
