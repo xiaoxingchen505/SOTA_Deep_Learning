@@ -76,11 +76,14 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf3.png">
 
-尽管我们使用一组离散的样本来计算这个积分，分层采样 (stratified sampling) 允许我们
+尽管我们使用一组离散的样本来计算这个积分，分层采样 (stratified sampling) 允许我们展现连续的场景，因为在整个过程中都是连续的位置(positions)来通过MLP网络。我们使用这些样本配合在Max文章的volume rendering review中提到的quadrature rule 来计算 C(r)。
+
+注： Max, N.: Optical models for direct volume rendering. IEEE Transactions on Visualization and Computer Graphics (1995)
+
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf4.png">
 
-<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png">
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="100">
 ## 论文总结：
 
 优点，贡献：
