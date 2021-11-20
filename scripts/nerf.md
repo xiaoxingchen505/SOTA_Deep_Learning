@@ -83,7 +83,7 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf4.png">
 
-<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="100">
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="50">
 ## 论文总结：
 
 优点，贡献：
