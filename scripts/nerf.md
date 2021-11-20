@@ -83,7 +83,9 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf4.png">
 
-<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="30">
+上述公式中，其中<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="30"> 是代表邻近样本之间的距离，这个从集合 (ci, σi) 中计算 Cˆ(r) 的公式是可以很容易微分的并且
+
+减少到使用alpha值 αi = 1 − exp(−σiδi).进行传统alpha合成
 ## 论文总结：
 
 优点，贡献：
