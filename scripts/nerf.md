@@ -76,6 +76,11 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf3.png">
 
+尽管我们使用一组离散的样本来计算这个积分，分层采样 (stratified sampling) 允许我们
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf4.png">
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png">
 ## 论文总结：
 
 优点，贡献：
