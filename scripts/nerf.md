@@ -111,7 +111,10 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 我们首先使用分层采样来采样第一组位置记为 Nc, 然后使用 'coarse' 网络来拟合这些数据 (就像Volume Rendering with Radiance Fields中的两个公式)。通过这个 'coarse' 网络，然后，我们产生了一个沿着每条光线的每一个更精确的点采样，生成一个偏向于volume的相关部分的样本。为了实现这个方法，作者首先重写了alpha composited color使用上面求C(r)的公式来求Cˆc(r) 作为这条光线上的所有采样过的颜色 Ci 的加权和。
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf7.png">
 
-通过归一化这些权重为<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf8.png" width="140" height="30">沿着光线产生了一个包含分段常数(piecewised-constant) 的概率密度函数（简称PDF:Probability Density Function)。作者从这个分布中使用 inverse transform sampling 采样了第二个有 Nf 个位置的集合。使用第一个和第二个样本的并集来训练我们的 'fine' 网络，然后同样使用上面求 C(r) 的公式来计算最后这条光线上渲染的颜色 Cˆf (r) 。不一样的是，这一次我们使用了所有 Nc + Nf 的样本。
+通过归一化这些权重为<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf8.png" width="140" height="30">沿着光线产生了一个包含分段常数(piecewised-constant) 的概率密度函数（简称PDF:Probability Density Function)。作者从这个分布中使用 inverse transform sampling 采样了第二个有 Nf 个位置的集合。使用第一个样本集合和第二个样本集合的并集来训练我们的 'fine' 网络，然后同样使用上面求 C(r) 的公式来计算最后这条光线上渲染的颜色 Cˆf (r) 。不一样的是，这一次我们使用了所有 Nc + Nf 的样本。这个方法分配了更多的样本到一些我们期望有可见物体的区域。
+
+同样这个方法也达成了和importance sampling一样的目标，但是我们使用这些采样的值作为整个积分域的非均匀的离散化而不是把每一个样本作为这整个积分的一个独立概率估算。
+
 ## 论文总结：
 
 优点，贡献：
