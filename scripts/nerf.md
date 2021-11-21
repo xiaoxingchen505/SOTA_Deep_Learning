@@ -86,6 +86,20 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 上述公式中，其中<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf5.png" width="100" height="30"> 是代表邻近样本之间的距离，这个从集合 (ci, σi) 中计算 Cˆ(r) 的公式是可以很容易微分的并且
 
 减少到使用alpha值 αi = 1 − exp(−σiδi).进行传统alpha合成
+
+
+## Optimizing a Neural Radiance Field
+作者一共提出了两种方法来优化 Neural Radiance Field，第一种是对于输入坐标的Positional encoding，第二个是hierarchical sampling，这个方法可以让我们更高效的采样高频样本。
+
+
+### Positional encoding
+作者发现网络如果直接输入xyzθφ 坐标，训练出来的物体渲染效果会非常不好。这和Rahaman的论文中描述得一致，原因是神经网络会倾向于学习低频的函数。他们也证明了在把输入放入网络中之前，使用高频函数把输入映射到高维空间再输入到网络中，网络能够更好的拟合包含高频函数变体的数据。
+
+本文中，作者对这些发现进行了补充，通过重新组合两个函数 FΘ = F'Θ ◦ γ ， 来构建FΘ。其中一个是函数是学习到的，γ 是把 R 映射到高维空间 R2L，F'Θ 仍然是简单的MLP。
+
+整个编码函数可以表示为下：
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf6.png">
+
 ## 论文总结：
 
 优点，贡献：
