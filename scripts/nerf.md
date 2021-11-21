@@ -93,12 +93,24 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 
 ### Positional encoding
-作者发现网络如果直接输入xyzθφ 坐标，训练出来的物体渲染效果会非常不好。这和Rahaman的论文中描述得一致，原因是神经网络会倾向于学习低频的函数。他们也证明了在把输入放入网络中之前，使用高频函数把输入映射到高维空间再输入到网络中，网络能够更好的拟合包含高频函数变体的数据。
+作者发现网络如果直接输入xyzθφ 坐标，训练出来的物体渲染效果会非常不好。这和Rahaman的论文中描述得一致，原因是神经网络会倾向于学习低频的函数。他们也证明了在把输入放入网络中之前，使用高频函数把输入映射到高维空间然后再输入到网络中，网络能够更好的拟合包含高频函数变体的数据。
 
 本文中，作者对这些发现进行了补充，通过重新组合两个函数 FΘ = F'Θ ◦ γ ， 来构建FΘ。其中一个是函数是学习到的，γ 是把 R 映射到高维空间 R2L，F'Θ 仍然是简单的MLP。
 
 整个编码函数可以表示为下：
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf6.png">
+
+文中采用的是用sin-cos函数，先将space坐标归一化到[-1,1]，然后采用sin-cos函数进行编码，本工作将3维position通过这种方式升到10维，方向升到4维。
+
+另外一个比较类似的映射方法就是大名鼎鼎的transformer架构。然而transformer的目标却不一样，transformer把它用来做成一系列的带有离散位置信息的token，这种架构不包含顺序，次序的概念。反之，本文使用这些函数来映射连续的输入坐标到高维空间，使得 MLP 网络能够更好的拟合一个高频率的函数。
+
+### Hierarchical volume sampling
+
+对于一个场景，很显然各个位置的重要性是不一样的，有的地方是大片相同的内容（或者空的），有些地方则细节很多，对于全空间采用相同密度的采样，对于训练显然是不划算的。因此，作者提出coarse+fine的想法，作者训练了两个network，先训练一个coarse sample的网络，然后根据coarse网络的输出，再进行更加细致的采样。
+
+为了实现这个方法，作者首先重写了alpha composited color从上面求C(r)的公式来求Cˆc(r) 作为这条光线上的所有采样过的颜色 Ci 的加权和。
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf7.png">
+
 
 ## 论文总结：
 
