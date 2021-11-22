@@ -115,6 +115,22 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 同样这个方法也达成了和importance sampling一样的目标，但是我们使用这些采样的值作为整个积分域的非均匀的离散化而不是把每一个样本作为这整个积分的一个独立概率估算。
 
+
+## Implementation details
+
+每一个场景都是用的分别的neural continuous volume representation network。 这样只需要一个捕捉到的场景RGB图片，比如：对应的摄像头视角，其本身的参数，和场景边界。
+
+(作者使用ground truth的合成数据摄像头视角，本身参数，和边界，还有COLMAP structure-from-motion package来拟合真实数据的参数。)
+
+在每一个训练迭代次数，作者从整个数据集里随机采样了一个batch的摄像头机光线，然后使用hierarchical sampling 从 coarse 网络来产生 Nc 个样本，最后从fine 网络中产生 Nc + Nf 个样本。接下来就可以使用 Volume Rendering with Radiance Fields中所描述的过程来渲染两个样本集中每束光线的颜色。
+
+我们loss 函数就是全部的二次方误差，取自于 coarse和 fine 渲染的颜色和真实的像素颜色差：
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf9.png">
+
+上面的公式中，R是每个batch中的光线的集合，C(r), Cˆc(r) , 和 Cˆf (r) 分别是对于每一个光线 r 的ground truth， 预测的 coarse volume RGB颜色，预测的 fine volume RGB颜色。
+
+注意：尽管最后的渲染结果出自于 Cˆf (r)，我们也同样最小化了 Cˆc(r) 的loss，所以coarse网络中的权重分配可以被用来分配样本到fine网络里。
+
 ## 论文总结：
 
 优点，贡献：
