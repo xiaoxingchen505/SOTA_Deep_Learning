@@ -137,6 +137,11 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 (other Adam hyperparameters are left at default values of β1 = 0.9, β2 = 0.999, and e = 10−7)
 
+
+## 实验结果：
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf7.png">
+这一部分作者提到指标不能很好的反应NeRF的效果，建议读者们去看视频。
+这个是作者的github地址，有他的视频在上面：https://github.com/bmild/nerf
 ## 论文总结：
 
 优点，贡献：
