@@ -131,6 +131,12 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 注意：尽管最后的渲染结果出自于 Cˆf (r)，我们也同样最小化了 Cˆc(r) 的loss，所以coarse网络中的权重分配可以被用来分配样本到fine网络里。
 
+在作者的实验中，我们将batch size设为4096，也就是说一个batch里面有4096束光线(rays), 每个都是从 coarse volume 采样于 Nc = 64 个坐标，从fine volume里采样于 Nf = 128 个额外坐标。
+
+训练过程中，作者使用了Adam optimizer，初始学习率是5 × 10−4，会逐渐衰退到 5 × 10−5。
+
+(other Adam hyperparameters are left at default values of β1 = 0.9, β2 = 0.999, and e = 10−7)
+
 ## 论文总结：
 
 优点，贡献：
