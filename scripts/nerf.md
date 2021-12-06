@@ -28,7 +28,7 @@ Differentiable rasterizers or pathtracers can directly optimize mesh representat
 
 利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的光，还有在每一个点上光线穿过的密度 (density)。
 
-本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，和其对应的一个volume density，还有其视角对应 (view-dependent) 的RGB颜色，来实现这个模型。
+本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，其中对应的一个volume density，还有其（θ, φ）视角对应 (view-dependent) 的RGB颜色，来实现这个模型。
 
 
 关键词: 5D数据 (x, y, z, θ, φ) , volume density, view-dependent RGB color
