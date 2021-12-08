@@ -26,7 +26,7 @@ Differentiable rasterizers or pathtracers can directly optimize mesh representat
 
 ## 核心方法：
 
-利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的光，还有在每一个点上光线穿过的密度 (density)。
+利用一个5D函数来表示一个静止的场景(scene). 这个5D函数可以输出在空间中每一个带有(x, y, z)坐标的点的每一个(θ, φ) 方向上散发的射线，还有在每一个点上射线穿过的密度 (density)。
 
 本论文运用了 deep fully-connected neural network 或者被称为 MLP multilayer perceptron，通过回归一个单独的5D数据 (x, y, z, θ, φ)，其中对应的一个volume density，还有其（θ, φ）视角对应 (view-dependent) 的RGB颜色，来实现这个模型。
 
@@ -62,11 +62,11 @@ Because this process is naturally differentiable, we can use gradient descent to
 
 ## Volume Rendering with Radiance Fields
 
-Volume density σ(x) 可以被解释为一束光线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色 C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
+Volume density σ(x) 可以被解释为一束射线停止于在位置x的一个无穷小的粒子上。 期望得到的颜色 C(r) 在摄像机的视线上 r(t) = o + td 的远近边界 tn 和 tf 有下列关系式:
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf2.png">
 
 
-T(t) 代表着一条线上累计的光，从 tn 传输到 t. 比如，光线从tn 到 t 不碰到任何粒子的概率。需要估计通过所需虚拟相机的每个像素追溯的相机光线的积分C（r）。
+T(t) 代表着一条线上累计的射线，从 tn 传输到 t. 比如，射线从tn 到 t 不碰到任何粒子的概率。需要估计通过所需虚拟相机的每个像素追溯的相机射线的积分C（r）。
 
 我们对这样的连续积分使用Quadrature求积法. Deterministic quadrature (quadrature求定积分), 通常被用做渲染离散化的三位像素网络，会有效的影响我们个体表现的分辨率，因为 MLP 只会在应用在一组固定的且离散的坐标位置。
 
@@ -108,10 +108,10 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 对于一个场景，很显然各个位置的重要性是不一样的，有的地方是大片相同的内容（或者空的），有些地方则细节很多，对于全空间采用相同密度的采样，对于训练显然是不划算的。因此，作者提出coarse+fine的想法，作者训练了两个network，先训练一个coarse sample的网络，然后根据coarse网络的输出，再进行更加细致的采样。
 
-我们首先使用分层采样来采样第一组位置记为 Nc, 然后使用 'coarse' 网络来拟合这些数据 (就像Volume Rendering with Radiance Fields中的两个公式)。通过这个 'coarse' 网络，然后，我们产生了一个沿着每条光线的每一个更精确的点采样，生成一个偏向于volume的相关部分的样本。为了实现这个方法，作者首先重写了alpha composited color使用上面求C(r)的公式来求Cˆc(r) 作为这条光线上的所有采样过的颜色 Ci 的加权和。
+我们首先使用分层采样来采样第一组位置记为 Nc, 然后使用 'coarse' 网络来拟合这些数据 (就像Volume Rendering with Radiance Fields中的两个公式)。通过这个 'coarse' 网络，然后，我们产生了一个沿着每条射线的每一个更精确的点采样，生成一个偏向于volume的相关部分的样本。为了实现这个方法，作者首先重写了alpha composited color使用上面求C(r)的公式来求Cˆc(r) 作为这条射线上的所有采样过的颜色 Ci 的加权和。
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf7.png">
 
-通过归一化这些权重为<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf8.png" width="140" height="30">沿着光线产生了一个包含分段常数(piecewised-constant) 的概率密度函数（简称PDF:Probability Density Function)。作者从这个分布中使用 inverse transform sampling 采样了第二个有 Nf 个位置的集合。使用第一个样本集合和第二个样本集合的并集来训练我们的 'fine' 网络，然后同样使用上面求 C(r) 的公式来计算最后这条光线上渲染的颜色 Cˆf (r) 。不一样的是，这一次我们使用了所有 Nc + Nf 的样本。这个方法分配了更多的样本到一些我们期望有可见物体的区域。
+通过归一化这些权重为<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf8.png" width="140" height="30">沿着射线产生了一个包含分段常数(piecewised-constant) 的概率密度函数（简称PDF:Probability Density Function)。作者从这个分布中使用 inverse transform sampling 采样了第二个有 Nf 个位置的集合。使用第一个样本集合和第二个样本集合的并集来训练我们的 'fine' 网络，然后同样使用上面求 C(r) 的公式来计算最后这条射线上渲染的颜色 Cˆf (r) 。不一样的是，这一次我们使用了所有 Nc + Nf 的样本。这个方法分配了更多的样本到一些我们期望有可见物体的区域。
 
 同样这个方法也达成了和importance sampling一样的目标，但是我们使用这些采样的值作为整个积分域的非均匀的离散化而不是把每一个样本作为这整个积分的一个独立概率估算。
 
@@ -122,16 +122,16 @@ Quadrature求积法介绍：https://zhuanlan.zhihu.com/p/90607361
 
 (作者使用ground truth的合成数据摄像头视角，本身参数，和边界，还有COLMAP structure-from-motion package来拟合真实数据的参数。)
 
-在每一个训练迭代次数，作者从整个数据集里随机采样了一个batch的摄像头机光线，然后使用hierarchical sampling 从 coarse 网络来产生 Nc 个样本，最后从fine 网络中产生 Nc + Nf 个样本。接下来就可以使用 Volume Rendering with Radiance Fields中所描述的过程来渲染两个样本集中每束光线的颜色。
+在每一个训练迭代次数，作者从整个数据集里随机采样了一个batch的摄像头机射线，然后使用hierarchical sampling 从 coarse 网络来产生 Nc 个样本，最后从fine 网络中产生 Nc + Nf 个样本。接下来就可以使用 Volume Rendering with Radiance Fields中所描述的过程来渲染两个样本集中每束射线的颜色。
 
 我们loss 函数就是全部的二次方误差，取自于 coarse和 fine 渲染的颜色和真实的像素颜色差：
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf9.png">
 
-上面的公式中，R是每个batch中的光线的集合，C(r), Cˆc(r) , 和 Cˆf (r) 分别是对于每一个光线 r 的ground truth， 预测的 coarse volume RGB颜色，预测的 fine volume RGB颜色。
+上面的公式中，R是每个batch中的射线的集合，C(r), Cˆc(r) , 和 Cˆf (r) 分别是对于每一个射线 r 的ground truth， 预测的 coarse volume RGB颜色，预测的 fine volume RGB颜色。
 
 注意：尽管最后的渲染结果出自于 Cˆf (r)，我们也同样最小化了 Cˆc(r) 的loss，所以coarse网络中的权重分配可以被用来分配样本到fine网络里。
 
-在作者的实验中，我们将batch size设为4096，也就是说一个batch里面有4096束光线(rays), 每个都是从 coarse volume 采样于 Nc = 64 个坐标，从fine volume里采样于 Nf = 128 个额外坐标。
+在作者的实验中，我们将batch size设为4096，也就是说一个batch里面有4096束射线(rays), 每个都是从 coarse volume 采样于 Nc = 64 个坐标，从fine volume里采样于 Nf = 128 个额外坐标。
 
 训练过程中，作者使用了Adam optimizer，初始学习率是5 × 10−4，会逐渐衰退到 5 × 10−5。
 
