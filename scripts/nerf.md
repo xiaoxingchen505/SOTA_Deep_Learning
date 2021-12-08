@@ -34,7 +34,11 @@ Differentiable rasterizers or pathtracers can directly optimize mesh representat
 关键词: 5D数据 (x, y, z, θ, φ) , volume density, view-dependent RGB color
 
 
-## 方法步骤：
+### 方法步骤：
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf0.png">
+
+
+从一个特定的 viewpoint：
 
 1.  march camera rays through the scene to generate a sampled set of 3D points
 
