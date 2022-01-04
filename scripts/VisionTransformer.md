@@ -58,7 +58,7 @@ Scaled dot product
 
 实现：nn.Linear
 
-<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit4.png">
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit4.png" width="600" height="300">
 
-
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit5.png" width="600" height="300">
 
