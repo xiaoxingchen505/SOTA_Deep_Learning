@@ -58,7 +58,13 @@ Scaled dot product
 
 实现：nn.Linear
 
+
+### self-attention结构
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit4.png" width="800" height="400">
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit5.png" width="800" height="400">
+
+最后的sum z1是通过v1，v2，v3 以 elemental-wise 乘以对应的softmax值，然后相加。 公式：z1 = v1 * 0.8 + v2 * 0.15 + v3 * 0.05
+
+### 
 
