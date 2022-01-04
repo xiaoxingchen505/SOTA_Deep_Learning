@@ -37,10 +37,11 @@ Differentiable rasterizers or pathtracers can directly optimize mesh representat
 ### 方法步骤：
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf0.png">
 
+如上图所示，论文的 pipeline 是以图片作为输入，最后可以渲染出其他合成视角的图片。图片是围绕物体的一个半球面上面获取的，相机的位置(θ, φ)可以用表示。
 
 从一个特定的 viewpoint：
 
-1.  march camera rays through the scene to generate a sampled set of 3D points
+1. march camera rays through the scene to generate a sampled set of 3D points
 
 2. use those points and their corresponding 2D viewing directions as input to the neural network to produce an output set of colors and densities
 
@@ -60,7 +61,7 @@ Because this process is naturally differentiable, we can use gradient descent to
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/nerf1.png">
 
-论文为了让物体表现为multiview consistent，通过限制网络仅通过坐标x来预测volume density σ 而同时又允许RGB颜色 c 可以被通过坐标和视角来预测. MLP网络首先接受输入x和8层全连接层 (使用ReLU激活函数和每一层256个channels) , 然后输出volume density σ和256维的feature vector. 这个feature vector随后产生于通过拼接摄像机视角和通过一层额外的能够输出基于视角的RGB颜色的全连接层 (使用ReLU和128个channels)。
+论文为了让物体表现为multiview consistent，通过限制网络仅通过坐标x来预测volume density σ 而同时又能使得RGB颜色 c 可以被通过坐标和视角来预测. MLP网络首先接受输入x和8层全连接层 (使用ReLU激活函数和每一层256个channels) , 然后输出volume density σ和256维的feature vector. 这个feature vector随后产生于通过拼接摄像机视角和通过一层额外的能够输出基于视角的RGB颜色的全连接层 (使用ReLU和128个channels)。
 
 
 
