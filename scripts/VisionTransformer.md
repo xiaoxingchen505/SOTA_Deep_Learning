@@ -64,7 +64,80 @@ Scaled dot product
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit5.png" width="800" height="400">
 
-最后的sum z1是通过v1，v2，v3 以 elemental-wise 乘以对应的softmax值，然后相加。 公式：z1 = v1 * 0.8 + v2 * 0.15 + v3 * 0.05
+最后的sum z1是通过v1，v2，v3 以 elemental-wise 乘以对应的softmax值，然后相加。 公式：z1 = v1 * 0.8 + v2 * 0.15 + v3 * 0.05。通过这种方法，我们可以逐渐算出z2，z3，在transformer架构中，计算可以矩阵化 (并行)
 
-### 
+sum之后的z的意义：一词多义，比如date 会有约会和日期两个意思，这里的输出就是将单词的意思 -> 句中意思的转化
 
+### MultiHead Attention
+
+有多个Wq, Wk, Wv上述操作重复多次，结果concat一起.
+
+为什么使用 Multihead Attention? 答： 给注意力提供多种可能性
+
+例如： Conditional DETR (用于目标检测) 发现不同的 head 会 focus 到物体的不同边。
+
+
+### 输入端适配 Input Adaptation
+
+如果只有原始输出的9个向量，用哪个向量来分类都不好，全用计算量又很大，所以加一个可学习的vector，也就是patch 0来整合信息。
+
+
+## 位置编码 Positional Encoding
+
+图像切分重排后失去了位置信息，并且Transformer的内部运算是空间信息无关的，所以需要把位置信息编码重新传进网络，ViT使用了一个可学习的vector来编码，编码vector和patch vector直接相加组成输入
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit6.png">
+
+
+
+
+
+问：为什么直接相加，而不是concat ?
+
+
+答：因为相加是concat的一种特例
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit7.png">
+
+
+## VIT结构的数据流
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit7.png">
+
+
+
+## 训练方法
+
+### 大规模使用Pre-Train
+先在大数据集上预训练，然后到小数据集上Fine Tune，迁移过去后，需要把原本的MLP Head换掉，换成对应类别数的FC层（和过去一样），处理不同尺寸输入的时候需要对Positional Encoding的结果进行插值。
+
+
+### 关于positional encoding的插值
+
+不同的input size和patch size会切出不同数量的patch，所以编号的方法需要缩放
+
+
+## 结果分析
+
+### Attention距离和网络层数的关系
+
+Attention的距离可以等价为Conv中的感受野大小，可以看到越深的层数，Attention跨越的距离越远，但是在最底层，也有的head可以覆盖到很远的距离，这说明他们确实在负责Global信息整合
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/vit8.png">
+
+
+
+## 论文总结
+
+### 关键点
+
+* 模型结构——Transformer Encoder
+* 输入端适配——切分图片再重排
+* 位置编码——可学习的vector来表示
+
+### 创新点
+
+
+* 纯Transformer做分类任务
+* 简单的输入端适配即可使用
+* 做了大量的实验揭示了纯Transformer做CV的可能性。
