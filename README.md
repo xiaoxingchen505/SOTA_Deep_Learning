@@ -21,7 +21,7 @@
 
 ## ICLR paper reviews
 
-* [ViT (Vision Transformer):AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE](scripts/VisionTransformer.md)
+* [ViT (Vision Transformer): AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE](scripts/VisionTransformer.md)
 
 
 
