@@ -1,10 +1,10 @@
 # SOTA_Deep_Learning
  Some reviews of SOTA in deep learning
  作者时间有限，只能偶尔更新。
-
+ 主要总结一些paper的知识点，内容主要来自论文原文，深度之眼课程，互联网，仅为个人复习，查阅，分享使用。
 
 ## Artificial Neural Network
- 内容主要来自深度之眼，部分笔记来自互联网
+
 * [AlexNet](scripts/AlexNet.md)
 
 * [VggNet](scripts/VggNet.md)
@@ -15,7 +15,7 @@
 
 
 ## ECCV paper reviews
- 内容主要来自论文原文，部分笔记来自互联网
+
 * [NerF： Representing Scenes as Neural Radiance Fields for View Synthesis](scripts/nerf.md)
 
 
