@@ -14,15 +14,17 @@
 * [ResNet](scripts/GoogleNet(Inception_v0).md)
 
 
-## ECCV paper reviews
+## ECCV papers
 
 * [NerF： Representing Scenes as Neural Radiance Fields for View Synthesis](scripts/nerf.md)
 
 
-## ICLR paper reviews
+## ICLR papers
 
 * [ViT (Vision Transformer): AN IMAGE IS WORTH 16X16 WORDS:TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE](scripts/VisionTransformer.md)
 
+## NeurIPS papers
 
+* [Transformer: Attention Is All You Need](scripts/Transformer.md)
 
 
