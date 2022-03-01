@@ -31,3 +31,5 @@ Encoder 一般是映射一组输入 (x1, ..., xn) 到一组连续的表示 z = (
 ## attention 机制：
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans2.png">
+
+Attention 机制可以理解为将一个 query 和一些 key-value pairs 映射成一个输出的函数。其中 query， keys， values，output 都是一些向量。
