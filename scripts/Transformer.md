@@ -39,8 +39,12 @@ Attention 机制可以理解为将一个 query 和一些 key-value pairs 映射�
 
 作者在 Transformer 模型中提出了 'Scaled Dot-Product Attention' 机制。 其中 query 和 key 的维度都是 d_k, value 的 维度是 d_v。通过对每一个 query 和 key 做内积来得到相似度。两个向量的内积值越大，代表这两个向量的相似度越高。然后把这个值除以<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans3.png"> （向量的长度），然后通过一个 softmax 函数就可以得到权重。假如给定一个 query， 和 n 个 key-value pair 的话，那么就会算出 n 个值，因为这个 query 会跟每个 key 做内积。算出来以后再放进 softmax 函数就会得到n 个非负的而且加起来和等于一的一个权重，然后我们把这些权重作用在我们的 value 上面， 就可以得到我们的输出了。
 
-在实际问题中，我们需要用矩阵的形式来进行计算：
+在实际问题中，我们需要用矩阵的形式来进行计算, 公式如下：
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans4.png">
+
+举个例子：
+
+假设我们的 query 有 n 行， 列数为 d_k, 我们的 keys 有 m 行，列数也为 d_k， 这样我们用内积可以得到一个 n 乘以 m 的矩阵， 这个矩阵中，每一行是这个 query 对所有 keys 的内积值，然后再除以 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans3.png">， 再进入 softmax 函数，其实就是对每一行做 softmax， 行与行之间是独立的，这样就可以得到我们需要的权重。然后再乘以我们的 V ，V 是一个有 m 行，列数为 d_v 的矩阵。 把我们的权重矩阵和 V 做内积就可以得到一个 n 乘以 d_v 的矩阵，也就是我们的输出。
 
 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans5.png">
