@@ -40,3 +40,7 @@ Attention 机制可以理解为将一个 query 和一些 key-value pairs 映射�
 作者在 Transformer 模型中提出了 'Scaled Dot-Product Attention' 机制。 其中 query 和 key 的维度都是 d_k, value 的 维度是 d_v。通过对每一个 query 和 key 做内积来得到相似度。两个向量的内积值越大，代表这两个向量的相似度越高。然后把这个值除以<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans3.png"> （向量的长度），然后通过一个 softmax 函数就可以得到权重。假如给定一个 query， 和 n 个 key-value pair 的话，那么就会算出 n 个值，因为这个 query 会跟每个 key 做内积。算出来以后再放进 softmax 函数就会得到n 个非负的而且加起来和等于一的一个权重，然后我们把这些权重作用在我们的 value 上面， 就可以得到我们的输出了。
 
 在实际问题中，我们需要用矩阵的形式来进行计算：
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans4.png">
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans5.png">
