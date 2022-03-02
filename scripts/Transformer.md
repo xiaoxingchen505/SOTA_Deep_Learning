@@ -4,6 +4,7 @@
 
 # Transformer: Attention Is All You Need
 
+本篇的大部分笔记来自于李沐老师的视频，附上传送门：https://www.bilibili.com/video/BV1pu411o7BE
 
 ## 研究背景
 
@@ -88,3 +89,35 @@ Attention 机制可以理解为将一个 query 和一些 key-value pairs 映射�
 
 
 ### Position-wise Feed-Forward Networks
+
+除了注意力层，每一个在 encoder 和 decoder 中有一个全连接的多层感知机，也就是 MLP。不一样的是，这里作者是把一个MLP 对每一个词作用一次，然后对每个词作用的是同样一个 MLP.
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans8.png">
+
+在这个公式中，我们的作者通过 W_1 把输入的维度 512 给投影到了 2048，然后又通过 W_2，投影回了 512。所以这个东西其实就是一个单隐藏层的 MLP，中间的隐藏层，把你的输入扩大四倍，最后输出的时候也会回到你的输入的大小。用 Pytorch来实现的话，就是把两个线性层放到一起，你都不需要改任何参数，因为 Pytorch中，当你的输入是一个 3D 的时候，他默认就是在最后一个维度做计算。
+
+
+### Transformer 和 RNN 的区别
+
+RNN 是把上一个时刻的信息，输出传入下一个时候做输入。但是在Transformer里面，它是通过一个attention层，然后再全局的去拉到整个序列里的信息，然后再用MLP做语义的转换。
+
+
+### Embedding 和 softmax
+
+Embedding 其实就是对于任何一个词，我学习一个长为 d 的向量来表示它，d 在这个作者模型里面就是 d_model = 512 ， 你的编码器和解码器都需要一个 embedding。 作者也使用了一个线性层和 softmax 函数来把解码器的输出转化为下一个预测的 token 的概率。 在最后 softmax 前面的那个线性层中，也需要一个embedding。 这三个 embeddings 是一样的权重，这样训练起来会简单一点。在这些 embeddings 中，我们把权重乘以 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans9.png">。主要是为了控制 embedding的 scale，让 embeddings 和 positional encoding相加的时候，scale是差不多的。其实也就是把 embeddings 的结果变小一点，给后面加 positional encoding 腾出地方。
+
+### Positional Encoding 位置编码
+
+位置编码是为了让 attention 机制保留一些时序上的信息，做法是在输入上加入时序信息。假设我们有一个词在 embedding 是维度为 512 的向量，同样我们用一个长为 512 的向量来表示一个数字，来表示这个词在输入中的位置。具体这个值是用周期不一样的 sin 和 cos 函数的值算出来的。
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans10.png">
+
+然后这个长为 512 的记录了时序信息的向量，跟我们的 embeddings 相加，就完成了把时序信息，加入到我们的输入里。之前我们把我们的embeddings 乘以了 <img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans9.png">，也是让我们的值在 -1 到 1 之间，因为我们的positional encoding 是通过 sin 和 cos 函数算出来的，所以数字也是差不多到 1 到 -1 之间。
+
+
+## 为什么要用 self-attention
+
+<img src="https://github.com/xiaoxingchen505/SOA_Deep_Learning/blob/main/images/trans11.png">
+
+作者用这个图表来解释了为什么 self-attention 更好，其实主要是也是说明 RNN 的序列化计算，导致在并行上是比较吃亏的。其次，最初点的信息到最终点的信息，需要走过 n 步，所以 RNN 经常被批评对长序列的信息处理得不好，而不像 attention 一样，直接一步就可以过去。这三个模型的复杂度是差不多的，但是在计算上，attention和卷积会好一点，另外一个就是说attention在信息的柔和型上会好一点，所以你可以认为这个地方还是影响了一些东西。但是实际上，attention 对于整个模型的假设做了更少，导致 attention 需要更多的数据，更大的模型才能训练出来，达到跟 RNN 和 CNN 同样的效果。
+
