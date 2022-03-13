@@ -1,9 +1,9 @@
 # SOTA_Deep_Learning
  Some reviews of SOTA in deep learning
  作者时间有限，只能偶尔更新。
- 主要总结一些paper的知识点，内容主要来自论文原文，深度之眼课程，互联网，仅为个人复习，查阅，分享使用。
+ 主要总结一些paper的知识点，内容主要来自论文原文，深度之眼课程，互联网，仅为个人复习，查阅，分享使用。欢迎帮忙指出其中的勘误。
 
-## Artificial Neural Network
+## Artificial Neural Network (Backbones)
 
 * [AlexNet](scripts/AlexNet.md)
 
