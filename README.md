@@ -11,7 +11,7 @@
 
 * [GoogleNet(Inception_v0)](scripts/GoogleNet(Inception_v0).md)
 
-* [ResNet](scripts/GoogleNet(Inception_v0).md)
+* [ResNet](scripts/ResNet.md)
 
 
 ## ECCV papers
