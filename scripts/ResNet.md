@@ -1,4 +1,4 @@
-# ResNet
+# Deep Residual Learning for Image Recognition (ResNet)
 Author: Kaiming He， Xiangyu Zhang ，Shaoqing Ren， Jian Sun (MSRA)
 
 
